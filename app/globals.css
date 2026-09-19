@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #fdf8f0;
+  --color-cream-deep: #f7ecdb;
+  --color-ink: #1f1b16;
+  --color-ink-soft: #4a423a;
+  --color-terracotta: #e07856;
+  --color-honey: #e8b04b;
+  --color-blush: #f4d4c5;
+  --color-sage: #c7d5c0;
+  --font-serif: var(--font-serif);
+  --font-sans: var(--font-sans);
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  /* Prevent horizontal page scroll */
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  /* Also clamp the body — belt and braces */
+  overflow-x: hidden;
+  width: 100%;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-serif), Georgia, serif;
+  letter-spacing: -0.02em;
+}
+
+::selection {
+  background: var(--color-terracotta);
+  color: white;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--color-cream); }
+::-webkit-scrollbar-thumb {
+  background: var(--color-blush);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--color-terracotta); }
+
+/* Marquee keyframes */
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes marquee-right {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+.marquee-track-left  { animation: marquee-left  40s linear infinite; }
+.marquee-track-right { animation: marquee-right 40s linear infinite; }
+
+.marquee-pause:hover .marquee-track-left,
+.marquee-pause:hover .marquee-track-right {
+  animation-play-state: paused;
+}
+
+/* Hide scrollbar but keep scroll behaviour */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
