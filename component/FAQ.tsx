@@ -27,45 +27,49 @@ type QA = {
 
 const faqs: QA[] = [
   {
-    question: "How do I book a photoshoot session with IBGE Media House?",
+    question: "How do I book a photoshoot with Ibge Media House?",
     answer:
-      "Simply click any 'Book Session' or 'Reserve' button on the site, or send us a message directly on WhatsApp. We'll confirm availability, answer any questions, and lock in your preferred date and time. A 50% deposit secures your slot — the balance is due on the day of the shoot.",
+      "Tap any 'Book Session' button on the site, or message us directly on WhatsApp at 078 218 5601. We'll confirm availability, chat through your ideas, and lock in your date and time. We're open on Sundays and public holidays — great if you can only shoot on weekends.",
   },
   {
-    question: "What print sizes do you offer and can I see how it looks on my wall?",
+    question: "Do you shoot outdoors or in a studio?",
     answer:
-      "We offer archival prints from 8″×10″ up to 24″×36″ museum-grade, plus custom sizes on request. Our Wall Simulator tool lets you upload a photo of your wall and preview any print in true-to-scale proportion before you commit — so you never guess the size.",
+      "Both. We work from a well-equipped studio at 36 Anderson Road in Diamant Park, Kimberley — with a dedicated photo and video setup, secure parking, and free WiFi. We also love shooting outdoors at golden hour, in the veld, and at client homes or venues across the Northern Cape.",
   },
   {
-    question: "How long does photo editing and delivery take?",
+    question: "How many photos do I get, and are prints included?",
     answer:
-      "Portrait sessions are delivered in 48 hours, editorial and gala shoots within 5–7 days, and weddings or full campaigns within 2–3 weeks. You'll receive a private online gallery with full-resolution downloads, plus a curated selection of teaser previews within 24 hours.",
+      "It depends on the package you choose. Our 30-minute sessions include 10 edited digital photos with no prints. Our 1-hour sessions include 30 edited photos plus 10 printed photos. Our 2-hour sessions include 60 edited photos plus 20 printed photos. Everything is delivered via a private Google Drive link, and prints are ready for collection at the studio.",
   },
   {
-    question: "Can you help with styling, wardrobe, and creative direction?",
+    question: "How long until I receive my edited photos?",
     answer:
-      "Absolutely. Every session includes a pre-shoot consultation where we plan outfits, backdrops, color palettes, and mood. Higher packages include a full creative director, wardrobe assistant, and hair & makeup on set — so you just show up and shine.",
+      "Most sessions are delivered within 48 hours. Larger shoots like matric farewells, weddings, and events may take a little longer — usually 5 to 7 days. We'll always give you a clear timeline when you book.",
   },
   {
-    question: "Do you shoot on-location or in your studio?",
+    question: "I've never done a photoshoot before — will I feel awkward?",
     answer:
-      "Both! We have a state-of-the-art studio equipped with continuous LED lights, Profoto strobes, multiple seamless paper colors, cyc walls, and fog machines. We also love shooting at golden hour outdoor locations, urban streetscapes, and client estates.",
+      "Almost everyone says that before their first shoot. We guide every pose with calm, friendly direction, play music that keeps things relaxed, and keep the whole session conversational. By the end, you'll forget the camera is even there.",
   },
   {
-    question: "What if I'm nervous in front of the camera?",
+    question: "What should I wear or bring?",
     answer:
-      "Most of our clients are! We guide every pose with calm direction, play music that puts you at ease, and keep the whole shoot relaxed and conversational. By the end, you'll forget the camera is even there.",
+      "Bring 2–3 outfit changes if your package allows — solid colours and textures photograph beautifully. We'll chat through your look before the shoot and can offer guidance on colours that work with your skin tone and the backdrop. Feel free to bring props, kids' favourite toys, or anything meaningful to you.",
   },
   {
-    question: "Do you travel outside Kimberely?",
+    question: "Do you travel outside Kimberley?",
     answer:
-      "Yes — we shoot across South Africa and internationally. Travel within Gauteng is included. For destinations beyond, we quote a flat travel fee that covers transport, accommodation, and any permits needed.",
+      "Yes — we shoot across the Northern Cape, including Barkly West, Warrenton, Klerksdorp, and Bloemfontein. Travel outside Kimberley is quoted on request, based on distance and shoot length. Reach out on WhatsApp for a quick quote.",
+  },
+  {
+    question: "What types of sessions do you offer?",
+    answer:
+      "Portraits, birthdays, maternity, babies and kids, graduations, matric farewells, weddings, and anniversary shoots. We also cover family ceremonies, corporate events, and provide event videography with cinematic trailers. Custom packages are always welcome — just ask.",
   },
 ];
 
 export default function FAQ() {
-  // Allow only one open at a time — set to null to close all
-  const [openIndex, setOpenIndex] = useState<number | null>(4); // 5th item open by default (like the reference)
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const toggle = (i: number) => {
     setOpenIndex((prev) => (prev === i ? null : i));
@@ -73,11 +77,9 @@ export default function FAQ() {
 
   return (
     <section className="relative bg-[var(--color-cream)] py-32 overflow-hidden">
-      {/* Ambient warmth */}
       <div className="absolute top-1/3 -left-40 w-[400px] h-[400px] rounded-full bg-[var(--color-honey)]/8 blur-[130px] pointer-events-none" />
       <div className="absolute bottom-0 -right-40 w-[400px] h-[400px] rounded-full bg-[var(--color-blush)]/15 blur-[130px] pointer-events-none" />
 
-      {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -85,12 +87,8 @@ export default function FAQ() {
         transition={{ duration: 1, ease: EASE }}
         className="relative max-w-3xl mx-auto px-6 text-center mb-16"
       >
-        {/* Eyebrow pill */}
         <div className="inline-flex items-center gap-2 bg-[var(--color-honey)]/20 border border-[var(--color-honey)]/40 rounded-full px-4 py-2 mb-6">
-          <HelpCircle
-            size={12}
-            className="text-[var(--color-terracotta)]"
-          />
+          <HelpCircle size={12} className="text-[var(--color-terracotta)]" />
           <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--color-ink)] font-semibold">
             Helpful Questions & Answers
           </span>
@@ -101,7 +99,6 @@ export default function FAQ() {
         </h2>
       </motion.div>
 
-      {/* FAQ list */}
       <motion.div
         variants={container}
         initial="hidden"
@@ -140,7 +137,6 @@ function FAQItem({
           : "border-[var(--color-ink)]/8 shadow-[0_15px_30px_-20px_rgba(31,27,22,0.08)] hover:shadow-[0_20px_40px_-20px_rgba(31,27,22,0.12)] hover:border-[var(--color-ink)]/15"
       }`}
     >
-      {/* Question button */}
       <button
         type="button"
         onClick={onToggle}
@@ -164,7 +160,6 @@ function FAQItem({
         </motion.span>
       </button>
 
-      {/* Answer — animated expand */}
       <AnimatePresence initial={false}>
         {isOpen && (
           <motion.div

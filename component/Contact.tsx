@@ -27,7 +27,7 @@ const itemVar: Variants = {
 const WHATSAPP_NUMBER = "27782185601";
 const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}`;
 
-// ── Package options (visual picker) ──
+// ── Package options ──
 const PACKAGES = [
   {
     id: "ordinary",
@@ -118,6 +118,10 @@ export default function Contact() {
     message: "",
   });
 
+  const [sending, setSending] = useState(false);
+  const [sent, setSent] = useState(false);
+  const [sendError, setSendError] = useState<string | null>(null);
+
   const selectedPackage = PACKAGES.find((p) => p.id === form.packageId);
 
   const handleChange = (
@@ -126,16 +130,56 @@ export default function Contact() {
     >
   ) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    // Clear previous success/error state when user edits anything
+    if (sent) setSent(false);
+    if (sendError) setSendError(null);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", form);
-    alert(
-      `Thanks ${form.name || "there"}! We'll confirm your ${
-        selectedPackage?.label
-      } on ${formatDate(form.date)} at ${form.time} within 24 hours.`
-    );
+    setSending(true);
+    setSendError(null);
+
+    try {
+      const res = await fetch("/api/send-booking", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          packageLabel: selectedPackage?.label,
+          packagePrice: selectedPackage?.price,
+          date: formatDate(form.date),
+          time: form.time,
+          message: form.message,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to send");
+      }
+
+      setSent(true);
+      // Reset form fields (keep package default)
+      setForm({
+        name: "",
+        email: "",
+        phone: "",
+        packageId: "ordinary",
+        date: "",
+        time: "",
+        message: "",
+      });
+    } catch (err: any) {
+      setSendError(
+        err.message || "Could not send. Please try WhatsApp instead."
+      );
+    } finally {
+      setSending(false);
+    }
   };
 
   const handleWhatsAppSend = () => {
@@ -149,7 +193,7 @@ export default function Contact() {
         `Time: ${form.time || "—"}\n\n` +
         `${form.message || ""}`
     );
-    window.open(`${WHATSAPP_LINK}?text=${text}`, "_blank");
+    window.location.href = `${WHATSAPP_LINK}?text=${text}`;
   };
 
   return (
@@ -416,14 +460,26 @@ export default function Contact() {
             <div className="flex flex-col sm:flex-row gap-3 pt-2">
               <button
                 type="submit"
-                className="group flex-1 flex items-center justify-center gap-2 bg-[var(--color-honey)] text-[var(--color-ink)] py-4 rounded-full font-semibold text-xs uppercase tracking-widest hover:bg-[var(--color-terracotta)] hover:text-white transition-colors duration-300"
+                disabled={sending || sent}
+                className="group flex-1 flex items-center justify-center gap-2 bg-[var(--color-honey)] text-[var(--color-ink)] py-4 rounded-full font-semibold text-xs uppercase tracking-widest hover:bg-[var(--color-terracotta)] hover:text-white transition-colors duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
               >
-                <Send size={14} />
-                Send Booking Request
-                <ChevronRight
-                  size={14}
-                  className="group-hover:translate-x-0.5 transition-transform"
-                />
+                {sent ? (
+                  <>
+                    <Check size={14} />
+                    Request Sent
+                  </>
+                ) : sending ? (
+                  <>Sending…</>
+                ) : (
+                  <>
+                    <Send size={14} />
+                    Send Booking Request
+                    <ChevronRight
+                      size={14}
+                      className="group-hover:translate-x-0.5 transition-transform"
+                    />
+                  </>
+                )}
               </button>
               <button
                 type="button"
@@ -434,6 +490,18 @@ export default function Contact() {
                 Send via WhatsApp Instead
               </button>
             </div>
+
+            {/* Status messages */}
+            {sent && (
+              <p className="text-center text-[12px] text-emerald-600 font-medium">
+                Thanks! We&apos;ll reply within 24 hours.
+              </p>
+            )}
+            {sendError && (
+              <p className="text-center text-[12px] text-red-600 font-medium">
+                {sendError}
+              </p>
+            )}
           </form>
         </motion.div>
       </motion.div>

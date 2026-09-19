@@ -4,25 +4,47 @@ import AnimatedGallery from "@/component/AnimatedGallery";
 import Packages from "@/component/Packages";
 import AboutUs from "@/component/aboutus";
 import Testimonials from "@/component/Testimonials";
+import Studio from "@/component/rentingStudio";
 import FAQ from "@/component/FAQ";
 import Contact from "@/component/Contact";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 
 export default function Home() {
   return (
     <main>
-      <Hero />
-      <FeatureCards />
-      <AnimatedGallery />
-      <Packages />
-      <AboutUs />
-      <Testimonials />
-      <FAQ />
-      <Contact />
+      <section id="home">
+        <Hero />
+      </section>
 
-      <section className="bg-[var(--color-ink)] text-[var(--color-cream)] py-28">
-        {/* ...final CTA... */}
+      <section id="features">
+        <FeatureCards />
+      </section>
+
+      <section id="portfolio">
+        <AnimatedGallery />
+      </section>
+
+      <section id="services">
+        <Packages />
+      </section>
+
+      <section id="about">
+        <AboutUs />
+      </section>
+
+      <section id="reviews">
+        <Testimonials />
+      </section>
+
+      <section id="studio">
+        <Studio />
+      </section>
+
+      <section id="faq">
+        <FAQ />
+      </section>
+
+      <section id="contact">
+        <Contact />
       </section>
     </main>
   );

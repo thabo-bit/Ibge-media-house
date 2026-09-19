@@ -276,19 +276,7 @@ export default function Packages() {
         <p className="text-xs text-[var(--color-ink-soft)]/60 tracking-wide mb-4">
           Travel outside Kimberley quoted on request · Custom packages welcome
         </p>
-        <div className="flex flex-wrap items-center justify-center gap-4 text-[11px] uppercase tracking-[0.3em] text-[var(--color-ink)]">
-          <a href="tel:0782185601" className="hover:text-[var(--color-terracotta)] transition-colors">
-            Biv · 078 218 5601
-          </a>
-          <span className="w-1 h-1 rounded-full bg-[var(--color-ink)]/30" />
-          <a href="https://facebook.com" className="hover:text-[var(--color-terracotta)] transition-colors">
-            Facebook
-          </a>
-          <span className="w-1 h-1 rounded-full bg-[var(--color-ink)]/30" />
-          <a href="https://instagram.com" className="hover:text-[var(--color-terracotta)] transition-colors">
-            Instagram
-          </a>
-        </div>
+
       </motion.div>
     </section>
   );
