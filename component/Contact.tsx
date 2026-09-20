@@ -23,11 +23,9 @@ const itemVar: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE } },
 };
 
-// ── WhatsApp ──
 const WHATSAPP_NUMBER = "27782185601";
 const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}`;
 
-// ── Package options ──
 const PACKAGES = [
   {
     id: "ordinary",
@@ -118,9 +116,7 @@ export default function Contact() {
     message: "",
   });
 
-  const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
-  const [sendError, setSendError] = useState<string | null>(null);
 
   const selectedPackage = PACKAGES.find((p) => p.id === form.packageId);
 
@@ -130,69 +126,28 @@ export default function Contact() {
     >
   ) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    // Clear previous success/error state when user edits anything
     if (sent) setSent(false);
-    if (sendError) setSendError(null);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const buildMessage = () =>
+    `Hi IBGE Media House! I'd like to book a session.\n\n` +
+    `Name: ${form.name || "—"}\n` +
+    `Email: ${form.email || "—"}\n` +
+    `Phone: ${form.phone || "—"}\n` +
+    `Package: ${selectedPackage?.label} (${selectedPackage?.price})\n` +
+    `Date: ${formatDate(form.date) || "—"}\n` +
+    `Time: ${form.time || "—"}\n\n` +
+    `${form.message || ""}`;
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setSending(true);
-    setSendError(null);
-
-    try {
-      const res = await fetch("/api/send-booking", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: form.name,
-          email: form.email,
-          phone: form.phone,
-          packageLabel: selectedPackage?.label,
-          packagePrice: selectedPackage?.price,
-          date: formatDate(form.date),
-          time: form.time,
-          message: form.message,
-        }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error || "Failed to send");
-      }
-
-      setSent(true);
-      // Reset form fields (keep package default)
-      setForm({
-        name: "",
-        email: "",
-        phone: "",
-        packageId: "ordinary",
-        date: "",
-        time: "",
-        message: "",
-      });
-    } catch (err: any) {
-      setSendError(
-        err.message || "Could not send. Please try WhatsApp instead."
-      );
-    } finally {
-      setSending(false);
-    }
+    const text = encodeURIComponent(buildMessage());
+    window.location.href = `${WHATSAPP_LINK}?text=${text}`;
+    setSent(true);
   };
 
   const handleWhatsAppSend = () => {
-    const text = encodeURIComponent(
-      `Hi IBGE Media House! I'd like to book a session.\n\n` +
-        `Name: ${form.name || "—"}\n` +
-        `Email: ${form.email || "—"}\n` +
-        `Phone: ${form.phone || "—"}\n` +
-        `Package: ${selectedPackage?.label} (${selectedPackage?.price})\n` +
-        `Date: ${formatDate(form.date) || "—"}\n` +
-        `Time: ${form.time || "—"}\n\n` +
-        `${form.message || ""}`
-    );
+    const text = encodeURIComponent(buildMessage());
     window.location.href = `${WHATSAPP_LINK}?text=${text}`;
   };
 
@@ -201,7 +156,6 @@ export default function Contact() {
       <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-[var(--color-honey)]/8 blur-[140px] pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full bg-[var(--color-blush)]/15 blur-[140px] pointer-events-none" />
 
-      {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -229,7 +183,6 @@ export default function Contact() {
         </p>
       </motion.div>
 
-      {/* Centered booking form */}
       <motion.div
         variants={container}
         initial="hidden"
@@ -256,7 +209,6 @@ export default function Contact() {
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-7">
-            {/* ── Step 1: Package picker ── */}
             <div>
               <StepLabel step="1" label="Choose your session" />
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
@@ -304,7 +256,6 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* ── Step 2: Date & time ── */}
             <div>
               <StepLabel step="2" label="Pick a date & time" />
               <div className="grid sm:grid-cols-2 gap-4">
@@ -364,7 +315,6 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* ── Step 3: Your details ── */}
             <div>
               <StepLabel step="3" label="Your details" />
               <div className="space-y-4">
@@ -417,7 +367,6 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* Summary card */}
             <AnimatePresence>
               {(form.packageId || form.date || form.time) && (
                 <motion.div
@@ -456,20 +405,16 @@ export default function Contact() {
               )}
             </AnimatePresence>
 
-            {/* Actions */}
             <div className="flex flex-col sm:flex-row gap-3 pt-2">
               <button
                 type="submit"
-                disabled={sending || sent}
-                className="group flex-1 flex items-center justify-center gap-2 bg-[var(--color-honey)] text-[var(--color-ink)] py-4 rounded-full font-semibold text-xs uppercase tracking-widest hover:bg-[var(--color-terracotta)] hover:text-white transition-colors duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
+                className="group flex-1 flex items-center justify-center gap-2 bg-[var(--color-honey)] text-[var(--color-ink)] py-4 rounded-full font-semibold text-xs uppercase tracking-widest hover:bg-[var(--color-terracotta)] hover:text-white transition-colors duration-300"
               >
                 {sent ? (
                   <>
                     <Check size={14} />
-                    Request Sent
+                    Sent via WhatsApp
                   </>
-                ) : sending ? (
-                  <>Sending…</>
                 ) : (
                   <>
                     <Send size={14} />
@@ -491,15 +436,9 @@ export default function Contact() {
               </button>
             </div>
 
-            {/* Status messages */}
             {sent && (
               <p className="text-center text-[12px] text-emerald-600 font-medium">
-                Thanks! We&apos;ll reply within 24 hours.
-              </p>
-            )}
-            {sendError && (
-              <p className="text-center text-[12px] text-red-600 font-medium">
-                {sendError}
+                WhatsApp opened — just hit send to complete your booking.
               </p>
             )}
           </form>
@@ -508,10 +447,6 @@ export default function Contact() {
     </section>
   );
 }
-
-/* ------------------------------------------------------------------ */
-/* Sub-components                                                       */
-/* ------------------------------------------------------------------ */
 
 function StepLabel({ step, label }: { step: string; label: string }) {
   return (
