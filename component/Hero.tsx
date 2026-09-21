@@ -60,12 +60,12 @@ export default function Hero() {
                 Kimberley · Est. 2018
               </span>
 
-              <h1 className="font-serif text-[clamp(2rem,8vw,4.75rem)] leading-[1.05] text-white sm:text-black mb-5 sm:mb-8">
+              <h1 className="font-serif text-[clamp(2rem,8vw,4.75rem)] leading-[1.05] text-white mb-5 sm:mb-8">
                 <span className="block font-bold">Photography</span>
                 <span className="block font-normal">& Videography</span>
               </h1>
 
-              <p className="text-white/90 sm:text-black/80 text-[14px] sm:text-base lg:text-lg leading-[1.7] sm:leading-relaxed max-w-md mb-8 sm:mb-10">
+              <p className="text-white/90 text-[14px] sm:text-base lg:text-lg leading-[1.7] sm:leading-relaxed max-w-md mb-8 sm:mb-10">
                 A full-service media house in the Northern Cape — telling the
                 stories of families, artists, schools and businesses with
                 photographs and films that feel honest, generous and
@@ -92,7 +92,7 @@ export default function Hero() {
                 <a
                   href="#contact"
                   onClick={(e) => handleClick(e, "#contact")}
-                  className="inline-flex items-center justify-center gap-3 border-2 border-white sm:border-black text-white sm:text-black px-7 sm:px-8 py-3.5 sm:py-4 text-[11px] font-bold uppercase tracking-[0.22em] sm:tracking-[0.25em] hover:bg-white hover:text-black sm:hover:bg-black sm:hover:text-white transition-colors duration-300 rounded-sm backdrop-blur-sm sm:backdrop-blur-none"
+                  className="inline-flex items-center justify-center gap-3 border-2 border-white text-white px-7 sm:px-8 py-3.5 sm:py-4 text-[11px] font-bold uppercase tracking-[0.22em] sm:tracking-[0.25em] hover:bg-white hover:text-black transition-colors duration-300 rounded-sm backdrop-blur-sm"
                 >
                   Book a Session
                 </a>
