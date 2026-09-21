@@ -27,7 +27,7 @@ export default function Hero() {
     <section className="relative min-h-screen w-full bg-[var(--color-cream)] overflow-hidden">
       <div className="relative w-full min-h-screen lg:h-screen pt-28 sm:pt-32 lg:pt-24 pb-8">
         <Image
-          src="/mobile.jpeg"
+          src="/batch_Website pic.png"
           alt="Ibge Media House photographer"
           fill
           priority
@@ -36,7 +36,7 @@ export default function Hero() {
         />
 
         <Image
-          src="/file.jpeg"
+          src="/batch_Website pic.png"
           alt="Ibge Media House photographer"
           fill
           priority
