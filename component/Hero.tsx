@@ -44,9 +44,11 @@ export default function Hero() {
           className="hidden sm:block object-cover object-[center_30%]"
         />
 
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/55 to-black/70 sm:hidden pointer-events-none" />
+        {/* Mobile overlay — darkens whole image */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/60 to-black/75 sm:hidden pointer-events-none" />
 
-        <div className="hidden sm:block absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-black/25 pointer-events-none" />
+        {/* Desktop overlay — darkens right side where text sits */}
+        <div className="hidden sm:block absolute inset-0 bg-gradient-to-l from-black/60 via-black/30 to-transparent pointer-events-none" />
 
         <div className="absolute inset-0 pt-28 sm:pt-32 lg:pt-24 pb-8">
           <div className="max-w-7xl w-full h-full mx-auto px-5 sm:px-6 lg:px-12 flex items-center justify-center lg:justify-end">
@@ -60,12 +62,12 @@ export default function Hero() {
                 Kimberley · Est. 2018
               </span>
 
-              <h1 className="font-serif text-[clamp(2rem,8vw,4.75rem)] leading-[1.05] text-white mb-5 sm:mb-8">
+              <h1 className="font-serif text-[clamp(2rem,8vw,4.75rem)] leading-[1.05] text-white mb-5 sm:mb-8 drop-shadow-lg">
                 <span className="block font-bold">Photography</span>
-                <span className="block font-normal">& Videography</span>
+                <span className="block font-normal italic">& Videography</span>
               </h1>
 
-              <p className="text-white/90 text-[14px] sm:text-base lg:text-lg leading-[1.7] sm:leading-relaxed max-w-md mb-8 sm:mb-10">
+              <p className="text-white/95 text-[14px] sm:text-base lg:text-lg leading-[1.7] sm:leading-relaxed max-w-md mb-8 sm:mb-10 drop-shadow-md">
                 A full-service media house in the Northern Cape — telling the
                 stories of families, artists, schools and businesses with
                 photographs and films that feel honest, generous and
