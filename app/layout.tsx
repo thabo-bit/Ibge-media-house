@@ -20,7 +20,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Ibge Media House | Warm, Timeless Photography",
+  title: "Ibge MediaHouse | Warm, Timeless Photography",
   description:
     "Wedding, portrait, and lifestyle photography with warmth and heart.",
 };
