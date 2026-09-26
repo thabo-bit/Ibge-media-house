@@ -58,6 +58,34 @@ export default function Hero() {
               transition={{ duration: 0.9, delay: 0.2, ease: EASE }}
               className="w-full max-w-sm sm:max-w-md lg:max-w-lg xl:max-w-xl flex flex-col justify-center text-center lg:text-left items-center lg:items-start"
             >
+              {/* Company name — animated, stands out */}
+              <motion.div
+                initial={{ opacity: 0, y: -12, letterSpacing: "0.6em" }}
+                animate={{ opacity: 1, y: 0, letterSpacing: "0.2em" }}
+                transition={{ duration: 1, delay: 0.35, ease: EASE }}
+                className="mb-3 sm:mb-4"
+              >
+                <span className="block text-[clamp(1.1rem,3.5vw,1.75rem)] font-extrabold uppercase tracking-[0.2em] text-white drop-shadow-lg leading-tight">
+                  IBGE
+                </span>
+                <motion.span
+                  initial={{ opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.7, delay: 0.65, ease: EASE }}
+                  className="block text-[clamp(0.65rem,2vw,0.9rem)] font-semibold uppercase tracking-[0.45em] text-[#E87C2B] mt-0.5"
+                >
+                  Media House
+                </motion.span>
+              </motion.div>
+
+              {/* Thin accent divider */}
+              <motion.span
+                initial={{ scaleX: 0, opacity: 0 }}
+                animate={{ scaleX: 1, opacity: 1 }}
+                transition={{ duration: 0.7, delay: 0.8, ease: EASE }}
+                className="block h-px w-16 sm:w-20 bg-gradient-to-r from-[#E87C2B] to-transparent mb-4 sm:mb-5 origin-left"
+              />
+
               <span className="text-[10px] sm:text-[11px] lg:text-[12px] uppercase tracking-[0.35em] sm:tracking-[0.4em] text-[#E87C2B] font-bold mb-4 sm:mb-5">
                 Kimberley · Est. 2018
               </span>
