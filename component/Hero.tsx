@@ -44,10 +44,7 @@ export default function Hero() {
           className="hidden sm:block object-cover object-[center_30%]"
         />
 
-        {/* Mobile overlay — darkens whole image */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/60 to-black/75 sm:hidden pointer-events-none" />
-
-        {/* Desktop overlay — darkens right side where text sits */}
         <div className="hidden sm:block absolute inset-0 bg-gradient-to-l from-black/60 via-black/30 to-transparent pointer-events-none" />
 
         <div className="absolute inset-0 pt-28 sm:pt-32 lg:pt-24 pb-8">
@@ -58,33 +55,44 @@ export default function Hero() {
               transition={{ duration: 0.9, delay: 0.2, ease: EASE }}
               className="w-full max-w-sm sm:max-w-md lg:max-w-lg xl:max-w-xl flex flex-col justify-center text-center lg:text-left items-center lg:items-start"
             >
-              {/* Company name — animated, stands out */}
+              {/* Brand lockup: IBGE MEDIA HOUSE with side rules */}
               <motion.div
-                initial={{ opacity: 0, y: -12, letterSpacing: "0.6em" }}
-                animate={{ opacity: 1, y: 0, letterSpacing: "0.2em" }}
-                transition={{ duration: 1, delay: 0.35, ease: EASE }}
-                className="mb-3 sm:mb-4"
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.3, ease: EASE }}
+                className="flex items-center gap-3 sm:gap-4 mb-5 sm:mb-6"
               >
-                <span className="block text-[clamp(1.1rem,3.5vw,1.75rem)] font-extrabold uppercase tracking-[0.2em] text-white drop-shadow-lg leading-tight">
-                  IBGE
-                </span>
                 <motion.span
-                  initial={{ opacity: 0, x: -8 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.7, delay: 0.65, ease: EASE }}
-                  className="block text-[clamp(0.65rem,2vw,0.9rem)] font-semibold uppercase tracking-[0.45em] text-[#E87C2B] mt-0.5"
-                >
-                  Media House
-                </motion.span>
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 0.6, delay: 0.5, ease: EASE }}
+                  className="hidden sm:block h-px w-8 bg-[#E87C2B] origin-right"
+                />
+                <div className="relative overflow-hidden">
+                  <span className="block text-[11px] sm:text-[12px] lg:text-[13px] font-semibold uppercase tracking-[0.42em] text-white whitespace-nowrap">
+                    Ibge<span className="text-[#E87C2B]"> Media</span> House
+                  </span>
+                  {/* shimmer sweep */}
+                  <motion.span
+                    initial={{ x: "-120%" }}
+                    animate={{ x: "220%" }}
+                    transition={{
+                      duration: 2.4,
+                      delay: 1.2,
+                      repeat: Infinity,
+                      repeatDelay: 4,
+                      ease: "easeInOut",
+                    }}
+                    className="pointer-events-none absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-white/70 to-transparent skew-x-[-20deg]"
+                  />
+                </div>
+                <motion.span
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 0.6, delay: 0.5, ease: EASE }}
+                  className="hidden sm:block h-px w-8 bg-[#E87C2B] origin-left"
+                />
               </motion.div>
-
-              {/* Thin accent divider */}
-              <motion.span
-                initial={{ scaleX: 0, opacity: 0 }}
-                animate={{ scaleX: 1, opacity: 1 }}
-                transition={{ duration: 0.7, delay: 0.8, ease: EASE }}
-                className="block h-px w-16 sm:w-20 bg-gradient-to-r from-[#E87C2B] to-transparent mb-4 sm:mb-5 origin-left"
-              />
 
               <span className="text-[10px] sm:text-[11px] lg:text-[12px] uppercase tracking-[0.35em] sm:tracking-[0.4em] text-[#E87C2B] font-bold mb-4 sm:mb-5">
                 Kimberley · Est. 2018
